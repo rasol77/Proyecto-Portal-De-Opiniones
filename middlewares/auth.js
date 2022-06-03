@@ -5,10 +5,10 @@ const { generateError } = require('../helpers');
 const auth = (req, res, next) => {
     try {
         //Obtenemos el token
-        const { authority } = req.headers;
+        const { authorization } = req.headers;
 
         //Si no ay token damos error
-        if (!authority) {
+        if (!authorization) {
             throw generateError('Falta autorización', 401);
         }
 
@@ -16,13 +16,13 @@ const auth = (req, res, next) => {
         let token;
         try {
             //Generamos la info del token
-            token = jwt.verify(authority, process.env.SECRET);
+            token = jwt.verify(authorization, process.env.SECRET);
         } catch (error) {
             throw generateError('Token invalido', 401);
         }
         //Añadimos una propiedad a la  pregunta
-        req.user = token.id;
-
+        req.user = token.userId;
+        console.log(req.user);
         //Vamos al controlador continuo
         next();
     } catch (error) {

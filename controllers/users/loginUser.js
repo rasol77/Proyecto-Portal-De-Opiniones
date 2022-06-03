@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
 const selectUserByEmailQuery = require('../../db/userQueries/selectUserByEmailQuery');
 
 const { generateError } = require('../../helpers');
@@ -9,7 +10,7 @@ const loginUser = async (req, res, next) => {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            throw generateError('Faltan campos', 400);
+            throw generateError('Falta por rellenar campos', 400);
         }
 
         // Obtenemos al usuario con el email del body.
@@ -24,7 +25,7 @@ const loginUser = async (req, res, next) => {
 
         // Información que queremos guardar en el token.
         const payload = {
-            id: user.id,
+            userId: user.id,
         };
 
         // Firmamos el token.

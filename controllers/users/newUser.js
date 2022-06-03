@@ -1,18 +1,17 @@
 const insertUserQuery = require('../../db/userQueries/insertUserQuery');
-
 const { generateError } = require('../../helpers');
 
 const newUser = async (req, res, next) => {
     try {
-        // Obtenemos los campos del body.
+        //Obtenemos los campor del body
         const { email, password } = req.body;
 
-        // Si faltan campos lanzamos un error.
+        //Si faltan campos lanzamos el error
         if (!email || !password) {
-            throw generateError('Faltan campos', 400);
+            throw generateError('Faltan por rellenar', 400);
         }
 
-        // Creamos un usuario en la base de datos y obtenemos el id.
+        //Creamos un usuario en la BD y obtenemos el id
         const idUser = await insertUserQuery(email, password);
 
         res.send({
@@ -23,5 +22,4 @@ const newUser = async (req, res, next) => {
         next(error);
     }
 };
-
 module.exports = newUser;

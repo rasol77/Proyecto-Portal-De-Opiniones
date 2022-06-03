@@ -1,8 +1,7 @@
 const getUserByIdQuery = require('../../db/userQueries/selectUserByIdQuery');
-
 const getOwnUser = async (req, res, next) => {
     try {
-        const user = await getUserByIdQuery(req.idUser);
+        const user = await getUserByIdQuery(req.user);
 
         res.send({
             status: 'ok',

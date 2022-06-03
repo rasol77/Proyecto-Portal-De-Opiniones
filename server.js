@@ -15,20 +15,45 @@ app.use(express.json());
  * ##   Middlewares     ##
  * ########################
  */
-// const auth = require('./middlewares/auth');
+const auth = require('./middlewares/auth');
 
 /**
  * ########################
  * ## Endpoints Usuarios ##
  * ########################
  */
-const { newUser, loginUser } = require('./controllers/users');
+const {
+    newUser,
+    loginUser,
+    getUser,
+    getOwnUser,
+    emailModify,
+    passModify,
+} = require('./controllers/users');
 
 //Registra un nuevo usuario
 app.post('/users', newUser);
 
-//Info sobre el usuario con  token
+//Login de usuario
 app.post('/login', loginUser);
+
+//Información sobre el usuario
+app.get('/users/:idUser', getUser);
+
+//Info del usuario con token
+app.get('/users', auth, getOwnUser);
+
+//Para cambiar el email
+app.put('/email', auth, emailModify);
+
+//Para modificar la password
+app.put('/password', auth, passModify);
+
+/**
+ * #########################
+ * ## Endpoints Opiniones ##
+ * #########################
+ */
 
 /**
  * ######################
