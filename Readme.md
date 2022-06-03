@@ -43,11 +43,11 @@ User:
 
 POST [/user] - Registro de usuario X
 
-GET [/user/:id] - Devuelve información de usuario X
+GET [/user/:idUser] - Devuelve información de usuario X
 
-GET [/user] - Devuelve información del usuario del token (necesita cabecera con token) **TOKEN**
+GET [/user] - Devuelve información del usuario del token (necesita cabecera con token) **TOKEN** X
 
-POST [/login] - Login de usuario (devuelve token)
+POST [/login] - Login de usuario (devuelve token) X
 
 PUT: [/email] para modificar el email **TOKEN**
 
@@ -63,4 +63,4 @@ GET:[/Opinions/:idOpinion] Mostrar una sola Opinión.
 
 DELETE: [/Opinions/:idOpinion] Borrar una opinión del usuario que lo creó **TOKEN**
 
-PUT: [/Opinions] para modificar las opiniones **TOKEN**
+PUT: [/Opinions:idUser] para modificar las opiniones **TOKEN**
