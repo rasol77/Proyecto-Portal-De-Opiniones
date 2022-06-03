@@ -9,30 +9,31 @@ const insertUserQuery = async (email, password) => {
     try {
         connection = await getConnection();
 
-        //Obtenemos un array de usuarios que asigne la condición
+        // Obtenemos un array de usuarios que cumplan la condición establecida.
         const [users] = await connection.query(
-            `SELECT id from users WHERE email = ?`,
+            `SELECT id FROM users WHERE email = ?`,
             [email]
         );
 
-        // Para que no se logue un usuario con el mismo email.
+        // Si el array de usuarios tiene algún usuario quiere decir que el email
+        // ya está vinculado a otro usuario. Lanzamos un error.
         if (users.length > 0) {
             throw generateError(
-                'Ya hay un usuario con ese mismo email en la DB',
+                'Ya existe un usuario con ese email en la base de datos',
                 409
             );
         }
 
-        //Encriptamos la password
-        const hashPassword = await bcrypt.hash(password, 10);
+        // Encriptamos la contraseña.
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        //Creamos el usuario.
+        // Creamos el usuario.
         const [newUser] = await connection.query(
             `INSERT INTO users (email, password) VALUES(?, ?)`,
-            [email, hashPassword]
+            [email, hashedPassword]
         );
 
-        //id del elemento
+        // Retornamos el id del elemento creado.
         return newUser.insertId;
     } finally {
         if (connection) connection.release();

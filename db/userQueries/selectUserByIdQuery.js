@@ -2,24 +2,27 @@ const getConnection = require('../getConnection');
 
 const { generateError } = require('../../helpers');
 
-const selectUserByEmailQuery = async (email) => {
+const selectUserByIdQuery = async (idUser) => {
     let connection;
 
     try {
         connection = await getConnection();
 
         const [users] = await connection.query(
-            `SELECT id, password FROM users WHERE email = ?`,
-            [email]
+            `SELECT id, email, createdAt FROM users WHERE id = ?`,
+            [idUser]
         );
 
+        // Si no hay usuarios con ese id lanzamos un error.
         if (users.length < 1) {
             throw generateError('Usuario no encontrado', 404);
         }
+
+        // Retornamos el usuario que está en la posición 0 del array "users".
         return users[0];
     } finally {
         if (connection) connection.release();
     }
 };
 
-module.exports = selectUserByEmailQuery;
+module.exports = selectUserByIdQuery;
