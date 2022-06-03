@@ -1,16 +1,16 @@
-const getConnection = require('./getConnection');
+const getConnection = require('../db/getConnection');
 
 const userRegisterDB = async () => {
-  let connection;
-  try {
-    connection = await getConnection();
-    console.log('----- Delete (users) table -----');
+    let connection;
+    try {
+        connection = await getConnection();
+        console.log('----- Delete (users) table -----');
 
-    await connection.query('DROP TABLE IF EXISTS users');
+        await connection.query('DROP TABLE IF EXISTS users');
 
-    console.log('----- Created (users) table -----');
+        console.log('----- Created (users) table -----');
 
-    await connection.query(`
+        await connection.query(`
             CREATE TABLE users (
                 id INTEGER PRIMARY KEY AUTO_INCREMENT,
                 email VARCHAR(100) UNIQUE NOT NULL,
@@ -19,11 +19,11 @@ const userRegisterDB = async () => {
                 modifiedAt DATETIME ON UPDATE CURRENT_TIMESTAMP
             )
         `);
-  } catch (err) {
-    console.error(err);
-  } finally {
-    if (connection) connection.release();
-  }
+    } catch (err) {
+        console.error(err);
+    } finally {
+        if (connection) connection.release();
+    }
 };
 
 module.exports = userRegisterDB;

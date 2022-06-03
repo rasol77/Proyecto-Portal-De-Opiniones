@@ -1,6 +1,6 @@
-const getTokenUser = require('./getTokenUser');
+const loginUser = require('./loginUser');
 const newUser = require('./newUser');
 module.exports = {
-    getTokenUser,
+    loginUser,
     newUser,
 };

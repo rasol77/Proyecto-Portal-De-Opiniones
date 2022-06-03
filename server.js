@@ -15,22 +15,52 @@ app.use(express.json());
  * ##   Middlewares     ##
  * ########################
  */
-const gentToken = require('./middlewares/genToken');
-gentToken;
+// const auth = require('./middlewares/auth');
 
 /**
  * ########################
  * ## Endpoints Usuarios ##
  * ########################
  */
-const { newUser, getTokenUser } = require('./controllers/users');
+const { newUser, loginUser } = require('./controllers/users');
 
 //Registra un nuevo usuario
-app.post('/user', newUser);
+app.post('/users', newUser);
 
 //Info sobre el usuario con  token
-app.post('/login', getTokenUser);
+app.post('/login', loginUser);
 
+/**
+ * ######################
+ * ## Middleware Error ##
+ * ######################
+ */
+
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(err.statusCode || 500).send({
+        message: err.message,
+        status: 'Error',
+    });
+});
+/**
+ * ##########################
+ * ## Middleware Not Found ##
+ * ##########################
+ */
+
+app.use((req, res) => {
+    res.status(404).send({
+        status: 404,
+        message: 'Not Found',
+    });
+});
+
+/**
+ * ##################
+ * ## Server Listen##
+ * ##################
+ * */
 app.listen(PORT, () => {
     console.log(`Server listening http://localhost:${PORT}`);
 });

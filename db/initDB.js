@@ -1,15 +1,15 @@
-const opinionDB = require('./opinionsDB');
-const userRegisterDB = require('./userRegisterDB');
+const opinionDB = require('../modules/opinionsDB');
+const userRegisterDB = require('../modules/userRegisterDB');
 
 const main = async () => {
-  try {
-    await userRegisterDB();
-    await opinionDB();
-  } catch (err) {
-    console.error(err);
-  } finally {
-    process.exit();
-  }
+    try {
+        await userRegisterDB();
+        await opinionDB();
+    } catch (err) {
+        console.error(err);
+    } finally {
+        process.exit();
+    }
 };
 
 main();
