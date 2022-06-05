@@ -8,7 +8,7 @@ const passModify = async (req, res, next) => {
         if (!password) {
             await generateError('Contraseña incorrecta', 401);
         }
-        const UpdatePass = await UpdatePassQuery(password, req.user);
+        const UpdatePass = await UpdatePassQuery(password, req.idUser);
         res.send({
             status: 'ok',
             data: {

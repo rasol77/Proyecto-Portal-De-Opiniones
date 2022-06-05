@@ -9,7 +9,7 @@ const emailModify = async (req, res, next) => {
             await generateError('email no correcto', 401);
         }
 
-        const UpdateEmail = await UpdateEmailQuery(email, req.user);
+        const UpdateEmail = await UpdateEmailQuery(email, req.idUser);
         res.send({
             status: 'ok',
             data: {
