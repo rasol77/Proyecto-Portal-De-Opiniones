@@ -54,7 +54,20 @@ app.put('/password', auth, passModify);
  * ## Endpoints Opiniones ##
  * #########################
  */
+const {
+    newOpinion,
+    listOpinions,
+    getOpinion,
+} = require('./controllers/opinions');
 
+//Para crear una opinión
+app.post('/opinions', auth, newOpinion);
+
+//Ver todas las opiniones
+app.get('/opinions', listOpinions);
+
+//Ver una sola opinión por ID
+app.get('/opinions/:idOpinion', getOpinion);
 /**
  * ######################
  * ## Middleware Error ##
