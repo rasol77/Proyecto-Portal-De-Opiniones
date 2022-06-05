@@ -21,7 +21,7 @@ const auth = (req, res, next) => {
             throw generateError('Token invalido', 401);
         }
         //Añadimos una propiedad a la  pregunta
-        req.user = token.userId;
+        req.idUser = token.userId;
         console.log(req.user);
         //Vamos al controlador continuo
         next();
