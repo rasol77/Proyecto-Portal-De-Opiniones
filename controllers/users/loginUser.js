@@ -20,7 +20,7 @@ const loginUser = async (req, res, next) => {
         const validPassword = await bcrypt.compare(password, user.password);
 
         if (!validPassword) {
-            await generateError('Contraseña incorrecta', 401);
+            throw generateError('Contraseña incorrecta', 401);
         }
 
         // Información que queremos guardar en el token.
